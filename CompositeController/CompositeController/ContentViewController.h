@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ContentViewController : UIViewController
-@property (strong, nonatomic) IBOutlet UILabel *id_label;
+@property (nonatomic) IBOutlet UILabel *id_label;
+@property (nonatomic) int id_int;
 -(id)init_with_color:(UIColor*)color;
 @end
