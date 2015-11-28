@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>24777EF4-801D-41D8-A86F-C385BBE003B5</string>
 	<key>IDESourceControlProjectName</key>
-	<string>CompositeController</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>F3B8CEDA475526D7CBBC5D742ADEE44A2CE6F4CE</key>
 		<string>github.com:alex-kalinin/ios-bits.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>CompositeController/CompositeController.xcodeproj</string>
+	<string>CompositeController/CompositeController.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>F3B8CEDA475526D7CBBC5D742ADEE44A2CE6F4CE</key>

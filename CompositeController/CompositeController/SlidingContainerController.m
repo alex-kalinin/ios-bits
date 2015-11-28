@@ -5,6 +5,7 @@
 static char controller_index_key = 0;
 
 @interface SlidingContainerController()<UIScrollViewDelegate>
+@property (strong, nonatomic) IBOutlet UIView *today_button;
 
 @property (strong, nonatomic) IBOutlet UIScrollView *container_view;
 
@@ -12,14 +13,15 @@ static char controller_index_key = 0;
 //----------------------------------------------------------------------------------------
 @implementation SlidingContainerController
 {
-    NSMutableArray* _views;
+    NSMutableArray*_controllers;
     id <SlidingContainerController_DataSource> _data_source;
 }
 //----------------------------------------------------------------------------------------
 -(id)init_with_data_source:(id<SlidingContainerController_DataSource>)data_source
 {
-    _views = [NSMutableArray new];
+    _controllers = [NSMutableArray new];
     _data_source = data_source;
+//    _index_to_view_index = [NSMutableDictionary new];
     return [super init];
 }
 //----------------------------------------------------------------------------------------
@@ -35,6 +37,8 @@ static char controller_index_key = 0;
     }
 
     [self scroll_to_view_index:1];
+
+    self.today_button.backgroundColor = [self controller_for_index:0].view.backgroundColor;
 }
 //----------------------------------------------------------------------------------------
 -(void)add_child_controller:(UIViewController *)child at_end:(BOOL)at_end truncate:(BOOL)truncate with_index:(int)index
@@ -52,15 +56,15 @@ static char controller_index_key = 0;
     ContentViewController* to_remove = nil;
     
     if (at_end) {
-        [_views addObject:child];
-        center.x = (_views.count - 0.5f) * width;
-        if (truncate) to_remove = _views[0];
+        [_controllers addObject:child];
+        center.x = (_controllers.count - 0.5f) * width;
+        if (truncate) to_remove = _controllers[0];
     }
     else {
-        [_views insertObject:child atIndex:0];
+        [_controllers insertObject:child atIndex:0];
         // 1) Shift all views to the right
         // 2) Change the offset to keep the right view
-        for (ContentViewController *c in _views) {
+        for (ContentViewController *c in _controllers) {
             if (c != child) {
                 CGPoint cur_center = c.view.center;
                 cur_center.x += width;
@@ -72,15 +76,15 @@ static char controller_index_key = 0;
         self.container_view.contentOffset = offset;
         
         center.x = 0.5f * width;
-        if (truncate) to_remove = _views[_views.count - 1];
+        if (truncate) to_remove = _controllers[_controllers.count - 1];
     }
     
     if (to_remove) {
         [to_remove.view removeFromSuperview];
-        [_views removeObject:to_remove];
+        [_controllers removeObject:to_remove];
     }
     
-    self.container_view.contentSize = CGSizeMake(width * (_views.count), self.container_view.frame.size.height);
+    self.container_view.contentSize = CGSizeMake(width * (_controllers.count), self.container_view.frame.size.height);
 
     child.view.center = center;
 }
@@ -88,10 +92,10 @@ static char controller_index_key = 0;
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     unsigned int index = (unsigned int) ((scrollView.contentOffset.x + [self window_width] / 2) / [self window_width]);
-    ContentViewController* current = _views[index];
+    ContentViewController* current = _controllers[index];
     NSNumber* new_controller_index_offset = nil;
     
-    if (index >= _views.count - 1) {
+    if (index >= _controllers.count - 1) {
         new_controller_index_offset = @(1);
     }
     else if (index < 1) {
@@ -99,17 +103,52 @@ static char controller_index_key = 0;
     }
     
     if (new_controller_index_offset) {
-        NSNumber* current_index = objc_getAssociatedObject(current, &controller_index_key);
-        int new_index = [current_index intValue] + [new_controller_index_offset intValue];
+        int new_index = [self get_index_tag:current] + [new_controller_index_offset intValue];
         UIViewController* new_controller = [_data_source create_controller_for_index:new_index];
         BOOL at_end = [new_controller_index_offset intValue] > 0;
         [self add_child_controller:new_controller at_end:at_end truncate:NO with_index:new_index];
     }
 }
 //----------------------------------------------------------------------------------------
+-(int)get_index_tag:(UIViewController *)controller
+{
+    NSNumber* current_index = objc_getAssociatedObject(controller, &controller_index_key);
+    return [current_index intValue];
+}
+//----------------------------------------------------------------------------------------
+-(UIViewController*) controller_for_index:(int)target_index
+{
+    UIViewController *result = nil;
+
+    for (UIViewController *c in _controllers)
+    {
+        int index = [self get_index_tag:c];
+        if (index == target_index) {
+            result = c;
+            break;
+        }
+    }
+    return result;
+}
+//----------------------------------------------------------------------------------------
+-(int) view_index_for_index:(int)target_index
+{
+    int result = -1;
+    int view_index = -1;
+    for (UIViewController *c in _controllers)
+    {
+        view_index += 1;
+        int index = [self get_index_tag:c];
+        if (index == target_index) {
+            result = view_index;
+            break;
+        }
+    }
+    return result;
+}
+//----------------------------------------------------------------------------------------
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-//    int index = (int) (scrollView.contentOffset.x / [self window_width]);
 }
 //----------------------------------------------------------------------------------------
 -(CGFloat) window_width
@@ -117,9 +156,9 @@ static char controller_index_key = 0;
     return [[UIScreen mainScreen]bounds].size.width;
 }
 //----------------------------------------------------------------------------------------
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 //----------------------------------------------------------------------------------------
 -(void) scroll_to_view_index:(int)index
@@ -129,17 +168,12 @@ static char controller_index_key = 0;
     [self.container_view scrollRectToVisible:rect animated:YES];
 }
 //----------------------------------------------------------------------------------------
-- (IBAction)left_button_click:(id)sender
+- (IBAction)middle_button_click:(id)sender
 {
-    [self scroll_to_view_index:0];
-}
-//----------------------------------------------------------------------------------------
-- (IBAction)middle_button_click:(id)sender {
-    [self scroll_to_view_index:1];
-}
-//----------------------------------------------------------------------------------------
-- (IBAction)right_button_click:(id)sender {
-    [self scroll_to_view_index:2];
+    int view_index = [self view_index_for_index:0];
+
+    if (view_index >= 0)
+        [self scroll_to_view_index:view_index];
 }
 
 @end
