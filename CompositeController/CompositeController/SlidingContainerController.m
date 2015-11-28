@@ -21,7 +21,6 @@ static char controller_index_key = 0;
 {
     _controllers = [NSMutableArray new];
     _data_source = data_source;
-//    _index_to_view_index = [NSMutableDictionary new];
     return [super init];
 }
 //----------------------------------------------------------------------------------------
