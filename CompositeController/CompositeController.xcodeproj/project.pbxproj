@@ -12,8 +12,8 @@
 		A1D666641C07DB0200ECE57C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1D666631C07DB0200ECE57C /* Images.xcassets */; };
 		A1D666671C07DB0200ECE57C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1D666651C07DB0200ECE57C /* LaunchScreen.xib */; };
 		A1D666731C07DB0200ECE57C /* CompositeControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A1D666721C07DB0200ECE57C /* CompositeControllerTests.m */; };
-		A1D6667F1C07DB4600ECE57C /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1D6667D1C07DB4600ECE57C /* TabBarController.m */; };
-		A1D666801C07DB4600ECE57C /* TabBarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1D6667E1C07DB4600ECE57C /* TabBarController.xib */; };
+		A1D6667F1C07DB4600ECE57C /* SlidingContainerController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1D6667D1C07DB4600ECE57C /* SlidingContainerController.m */; };
+		A1D666801C07DB4600ECE57C /* SlidingContainerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1D6667E1C07DB4600ECE57C /* SlidingContainerController.xib */; };
 		A1D666841C07DD5500ECE57C /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1D666821C07DD5500ECE57C /* ContentViewController.m */; };
 		A1D666851C07DD5500ECE57C /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1D666831C07DD5500ECE57C /* ContentViewController.xib */; };
 /* End PBXBuildFile section */
@@ -39,9 +39,9 @@
 		A1D6666C1C07DB0200ECE57C /* CompositeControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CompositeControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1D666711C07DB0200ECE57C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1D666721C07DB0200ECE57C /* CompositeControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompositeControllerTests.m; sourceTree = "<group>"; };
-		A1D6667C1C07DB4600ECE57C /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
-		A1D6667D1C07DB4600ECE57C /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
-		A1D6667E1C07DB4600ECE57C /* TabBarController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabBarController.xib; sourceTree = "<group>"; };
+		A1D6667C1C07DB4600ECE57C /* SlidingContainerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlidingContainerController.h; sourceTree = "<group>"; };
+		A1D6667D1C07DB4600ECE57C /* SlidingContainerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlidingContainerController.m; sourceTree = "<group>"; };
+		A1D6667E1C07DB4600ECE57C /* SlidingContainerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlidingContainerController.xib; sourceTree = "<group>"; };
 		A1D666811C07DD5500ECE57C /* ContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentViewController.h; sourceTree = "<group>"; };
 		A1D666821C07DD5500ECE57C /* ContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentViewController.m; sourceTree = "<group>"; };
 		A1D666831C07DD5500ECE57C /* ContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
@@ -91,9 +91,9 @@
 				A1D666631C07DB0200ECE57C /* Images.xcassets */,
 				A1D666651C07DB0200ECE57C /* LaunchScreen.xib */,
 				A1D666531C07DB0200ECE57C /* Supporting Files */,
-				A1D6667C1C07DB4600ECE57C /* TabBarController.h */,
-				A1D6667D1C07DB4600ECE57C /* TabBarController.m */,
-				A1D6667E1C07DB4600ECE57C /* TabBarController.xib */,
+				A1D6667C1C07DB4600ECE57C /* SlidingContainerController.h */,
+				A1D6667D1C07DB4600ECE57C /* SlidingContainerController.m */,
+				A1D6667E1C07DB4600ECE57C /* SlidingContainerController.xib */,
 				A1D666811C07DD5500ECE57C /* ContentViewController.h */,
 				A1D666821C07DD5500ECE57C /* ContentViewController.m */,
 				A1D666831C07DD5500ECE57C /* ContentViewController.xib */,
@@ -208,7 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1D666851C07DD5500ECE57C /* ContentViewController.xib in Resources */,
-				A1D666801C07DB4600ECE57C /* TabBarController.xib in Resources */,
+				A1D666801C07DB4600ECE57C /* SlidingContainerController.xib in Resources */,
 				A1D666671C07DB0200ECE57C /* LaunchScreen.xib in Resources */,
 				A1D666641C07DB0200ECE57C /* Images.xcassets in Resources */,
 			);
@@ -229,7 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1D666591C07DB0200ECE57C /* AppDelegate.m in Sources */,
-				A1D6667F1C07DB4600ECE57C /* TabBarController.m in Sources */,
+				A1D6667F1C07DB4600ECE57C /* SlidingContainerController.m in Sources */,
 				A1D666841C07DD5500ECE57C /* ContentViewController.m in Sources */,
 				A1D666561C07DB0200ECE57C /* main.m in Sources */,
 			);
